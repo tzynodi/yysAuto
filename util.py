@@ -13,8 +13,7 @@ def moveCurPos(x,y):
 def getCurPos():
     return win32gui.GetCursorPos()
 
-def moveCurPos(x,y):
-    windll.user32.SetCursorPos(x, y)
+
 
 def cv2ReadImage(fileName):
     return cv2.imread(fileName, 0)

@@ -12,7 +12,7 @@ class AutoYuHun:
         def autoRunYuHunThread(arg):
             while (True):
                 try:
-                    if int(round(time.time() * 1000)) - self.operateTime < 2000 : #2s操作一次
+                    if int(round(time.time() * 1000)) - self.operateTime < 2000 : #最快2s操作一次
                         time.sleep(0.5)
                         continue
                     self.operateTime = int(round(time.time() * 1000))
