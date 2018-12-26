@@ -5,39 +5,29 @@ import threading
 import judge
 import Page
 import AutoYuHun
+import Mouse
 
 def main():
     print("Start !")
+    
+    mouse = Mouse.Mouse()
+    hW = util.findWindow("UltraEdit")
+    mouseTask = Mouse.MouseTask("click", None, hW, {"pos":(0,0)})
+    mouse.addMouseTask
 
-    hW = util.findWindow("阴阳师")
+#    hW = util.findWindow("阴阳师")
 
-    pageInstance = Page.Page(hW)
-    autoYuHun = AutoYuHun.AutoYuHun(pageInstance)
+#    pageInstance = Page.Page(hW)
+#    autoYuHun = AutoYuHun.AutoYuHun(pageInstance)
 
-    while(True):
-        try :
-            print(list(pageInstance.pageType.keys())[list(pageInstance.pageType.values()).index(pageInstance.nowPage)])
-        except Exception as e:
-            print(pageInstance.nowPage)
-            print(e)
-        time.sleep(1)
-
-    # def detectThread(arg) :
-    #     while (True):
-    #         whileStartTime = int(round(time.time() * 1000))
-    #         try:
-    #             judge.judgePage(hW)
-    #         except Exception as e:
-    #             print(e)
-    #         whileEndTime = int(round(time.time() * 1000))
-    #         print(whileEndTime - whileStartTime)
-    #
-    #         time.sleep(1)
-    #         continue
-    #
-    # t = threading.Thread(target=detectThread, args=(1,))
-    # t.start()
-
+#    while(True):
+#        try :
+#            print(list(pageInstance.pageType.keys())[list(pageInstance.pageType.values()).index(pageInstance.nowPage)])
+#        except Exception as e:
+#            print(pageInstance.nowPage)
+#            print(e)
+#        time.sleep(1)
+        
     print("End !")
 
 

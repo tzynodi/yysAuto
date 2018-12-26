@@ -47,7 +47,7 @@ class AutoYuHun:
                     elif page.nowPage == page.pageType['discoverYuHunWaitTeam']:  #等待队友一起开始游戏
                         self.jumpPage(12, 13)
                     elif page.nowPage == page.pageType['inGame']:  #进游戏准备
-                        t = 0
+                        pass
                     self.page.pageThreadLock.release()
                 except Exception as e:
                     print(e)

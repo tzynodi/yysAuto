@@ -13,7 +13,13 @@ def moveCurPos(x,y):
 def getCurPos():
     return win32gui.GetCursorPos()
 
-
+def activeWindow(hW):
+    win32gui.SetForegroundWindow(hW)
+    win32gui.SetWindowPos(hW, None, 0,0,0,0, win32con.SWP_NOMOVE | win32con.SWP_NOSIZE 
+    #| win32con.SWP_NOACTIVATE 
+    #| win32con.SWP_NOOWNERZORDER 
+    #| win32con.SWP_SHOWWINDOW
+    )
 
 def cv2ReadImage(fileName):
     return cv2.imread(fileName, 0)
