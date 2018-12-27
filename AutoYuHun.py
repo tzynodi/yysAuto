@@ -1,12 +1,14 @@
 import util as util
 import threading
 import time
+import Mouse
 
 class AutoYuHun:
 
-    def __init__(self, page):
+    def __init__(self, page, mouse):
         self.initImageSet()
         self.page = page
+        self.mouse = mouse
         self.operateTime = 0
 
         def autoRunYuHunThread(arg):
@@ -46,6 +48,8 @@ class AutoYuHun:
                         self.jumpPage(19, 12)
                     elif page.nowPage == page.pageType['discoverYuHunWaitTeam']:  #等待队友一起开始游戏
                         self.jumpPage(12, 13)
+                    elif page.nowPage == page.pageType['endGameFail']: #游戏失败
+                        self.jumpPage(18, 9)
                     elif page.nowPage == page.pageType['inGame']:  #进游戏准备
                         pass
                     self.page.pageThreadLock.release()
@@ -74,9 +78,9 @@ class AutoYuHun:
             wLeft, wTop, wRight, wBottom = self.page.windowPos
             iX, iY = max_loc
             print((wLeft, wTop, wRight, wBottom))
-            util.moveCurPos(wLeft + iX + self.page.windowOffest[0] + int(self.imageSet[buttonImg]["size"][1] / 2)
-                            , wTop + iY + self.page.windowOffest[1] + int(self.imageSet[buttonImg]["size"][0] / 2))
-        util.clickLeftCur()
+            mouseTask = Mouse.MouseTask("click", "left", self.page.hW, {"pos" : (wLeft + iX + self.page.windowOffest[0] + int(self.imageSet[buttonImg]["size"][1] / 2),
+                                                                             wTop + iY + self.page.windowOffest[1] + int(self.imageSet[buttonImg]["size"][0] / 2))})
+            self.mouse.addMouseTask(mouseTask)
 
     def checkBoxCheck(self, fromPage, toPage):
         buttonImg = str(fromPage) + 'To' + str(toPage) + 'CheckBox.png'
@@ -88,6 +92,6 @@ class AutoYuHun:
             wLeft, wTop, wRight, wBottom = self.page.windowPos
             iX, iY = max_loc
             print((wLeft, wTop, wRight, wBottom))
-            util.moveCurPos(wLeft + iX + self.page.windowOffest[0]
-                            , wTop + iY + self.page.windowOffest[1] + int(self.imageSet[buttonImg]["size"][0] / 2))
-        util.clickLeftCur()
+            mouseTask = Mouse.MouseTask("click", "left", self.page.hW, {"pos": (wLeft + iX + self.page.windowOffest[0]
+                            , wTop + iY + self.page.windowOffest[1] + int(self.imageSet[buttonImg]["size"][0] / 2))})
+            self.mouse.addMouseTask(mouseTask)

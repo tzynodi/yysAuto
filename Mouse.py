@@ -1,6 +1,6 @@
 import util as util
-import Queue
 import threading
+import time
 
 class MouseTask:
     def __init__(self, taskType, buttonType, hW, arg):
@@ -28,7 +28,7 @@ class Mouse:
                     if len(self.taskQueue) == 0:
                         pass
                     else:
-                        execute(getMouseTask())
+                        self.executeMouseTask(self.getMouseTask())
                     self.mouseThreadLock.release()
                 except Exception as e:
                     print(e)
@@ -39,20 +39,22 @@ class Mouse:
         t.start()
 
     def addMouseTask(self, task):
-		    try:
+        try:
             self.mouseThreadLock.acquire()
             for t in self.taskQueue:
                 if t.hW == task.hW:
+                    self.mouseThreadLock.release()
                     return False
             self.taskQueue.append(task)
             self.mouseThreadLock.release()
             return True
         except Exception as e:
+            self.mouseThreadLock.release()
             print(e)
             return False
 
     def getMouseTask(self):
-		    try:
+        try:
             task = self.taskQueue.pop(0)
             return task
         except Exception as e:

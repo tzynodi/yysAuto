@@ -42,6 +42,26 @@ def findWindow(name):
                 continue
     return None
 
+def findWindowList(name):
+    def _MyCallback(hwnd,extra):
+        temp=[]
+        temp.append(hwnd)
+        temp.append(win32gui.GetClassName(hwnd))
+        temp.append(win32gui.GetWindowText(hwnd))
+        extra[hwnd] = temp
+    windows = {}
+    win32gui.EnumWindows(_MyCallback, windows)
+
+    res = []
+    for item in windows:
+        #print(windows[item])
+        for si in windows[item]:
+            if type(si) == str and si.lower().find(name.lower()) >= 0 :
+                res.append(windows[item][0])
+            else :
+                continue
+    return res
+
 #获取窗口左上角和右下角坐标
 def getWindowPos(wHandle):
     return win32gui.GetWindowRect(wHandle)
